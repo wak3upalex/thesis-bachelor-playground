@@ -125,7 +125,7 @@ def forecast(tasks_csv: str,
     # Plot
     fig, ax = plt.subplots(figsize=(10, 6))
     m.plot(fcst, ax=ax)
-    ax.set_title("Weekly tasks forecast")
+    ax.set_title("Еженедельный прогноз по выполнению задач")
     plt.show()
 
     return fcst[["ds", "yhat", "yhat_lower", "yhat_upper"]]
@@ -150,5 +150,5 @@ def forecast(tasks_csv: str,
 
 tasks_path = "tasks.csv"
 events_path = "events.csv"
-result = forecast(tasks_path, events_path, forecast_weeks=50, employee=None)
+result = forecast(tasks_path, events_path, forecast_weeks=12, employee=None)
 display(result)
