@@ -1,0 +1,3 @@
+{"id": 1, "text": "Первый документ", "label": "positive"}
+{"id": 2, "text": "Второй документ", "label": "negative"}
+{"id": 3, "text": "Ещё один документ для примера", "label": "neutral"}
