@@ -74,8 +74,15 @@ def load_conf(raw: Dict[str, Any] | str | Path) -> SimulationConfig:
     if isinstance(raw, (str, Path)):
         raw = yaml.safe_load(Path(raw).read_text() if isinstance(raw, Path) else raw)
 
+    # raw['start_date'] может быть либо строкой, либо уже datetime
+    sd = raw.get("start_date")
+    if isinstance(sd, datetime):
+        start_date = sd
+    else:
+        start_date = isoparse(sd)
+
     cfg = SimulationConfig(
-        start_date=isoparse(raw["start_date"]),
+        start_date=start_date,
         horizon_days=int(raw["horizon_days"]),
         tick_minutes=int(raw["tick_minutes"]),
         team=TeamConfig(**_subdict(raw, "team")),
