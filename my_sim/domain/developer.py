@@ -88,9 +88,9 @@ class Developer:
         speed_tick = self._p.s0 * tick_fraction_of_day
         speed_tick *= self._fatigue.speed_multiplier()
 
-        # логнормальный шум
+        # логнормальный шум через экземпляр Random
         mu = -0.5 * self._p.lognorm_sigma ** 2
-        speed_tick *= lognormvariate(mu, self._p.lognorm_sigma, random=self._rng.random)
+        speed_tick *= self._rng.lognormvariate(mu, self._p.lognorm_sigma)
 
         done = min(workload_sp, speed_tick)
         self._sp_done_total += done
