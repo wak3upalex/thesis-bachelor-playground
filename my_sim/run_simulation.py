@@ -80,6 +80,8 @@ def main(cfg_path: str | Path = "config.yaml") -> None:
         return
 
     plot_velocity(df)
+    df_year = df[df["sim_time"] <= 365 * 24 * 3600]
+    plot_velocity(df_year)
     plot_tp_hist(df)
 
 
