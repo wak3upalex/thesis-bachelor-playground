@@ -96,8 +96,9 @@ class Developer:
         self._sp_done_total += done
 
         # ----- обновить усталость --------------------------------------------
-        self._fatigue.step(workload_sp=done / tick_fraction_of_day,
-                           restoring=is_rest_day)
+        self._fatigue.step_tick(workload_sp_tick=done,
+                                 tick_fraction_of_day = tick_fraction_of_day,
+        restoring = is_rest_day)
 
         # Проверить вероятность выгорания раз в конце суток (можно иначе)
         if is_rest_day is False:       # weekday

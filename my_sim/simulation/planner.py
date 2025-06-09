@@ -36,7 +36,7 @@ def sprint_planner_process(env: simpy.Environment,
     tick_frac_day = cfg.tick_minutes / 1440.0
 
     # per-dev «остаток» работы (SP, float)
-    remaining = defaultdict(float)
+    remaining: dict[int, float] = {dev.pid: 0.0 for dev in devs}
 
     while True:
         now_dt = env.to_datetime(env.now)

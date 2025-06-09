@@ -58,3 +58,20 @@ class FatigueModel:
         """
         from math import exp
         return 1.0 / (1.0 + exp(-kappa * (self.tp / 100.0 - 0.6)))  # 0.6 ≈ «зона риска»
+
+    def step_tick(self,
+                  workload_sp_tick: float,
+                  tick_fraction_of_day: float,
+                  restoring: bool) -> None:
+        """
+        То же самое, но параметры автоматически масштабируются под длительность тика.
+        """
+        p = self.params
+        w_thr_tick = p.w_thr * tick_fraction_of_day
+        α = p.alpha * tick_fraction_of_day
+        β_base = p.beta_rest if restoring else p.beta_work
+        β = β_base * tick_fraction_of_day
+
+        delta = α * max(0.0, workload_sp_tick - w_thr_tick) \
+                - β * max(0.0, w_thr_tick - workload_sp_tick)
+        self.tp = max(0.0, min(100.0, self.tp + delta))
